@@ -1,0 +1,39 @@
+{
+    "name": "gravatalonga/container",
+    "type": "library",
+    "description": "Implementation of PSR-11 Container, it is lightweight yet powerful. Feature such as Lazy Factory, Factory, Optinal Share of Services, Array Access and other it can be very versatile.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jonathan Fontes",
+            "email": "jonathan.alexey16@gmail.com",
+            "homepage": "https://jonathan.pt",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.0|^8.1",
+        "psr/container": "^2.0"
+    },
+    "provide": {
+        "psr/container-implementation": "^2.0"
+    },
+    "require-dev": {
+        "infection/infection": "^0.18.0",
+        "phpunit/phpunit": "^9",
+        "vimeo/psalm": "^4.3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Gravatalonga\\Container\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit test"
+    }
+}

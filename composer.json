@@ -1,23 +1,24 @@
 {
-    "name": ":vendor/:package_name",
+    "name": "gravatalonga/framework",
     "type": "library",
-    "description": ":package_description",
+    "description": "My own backbone for my personals projects",
     "keywords": [
-        ":vendor",
-        ":package_name"
+        "gravatalonga",
+        "framework"
     ],
-    "homepage": "https://github.com/:vendor/:package_name",
+    "homepage": "https://github.com/gravatalonga/framework",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": ":author_email",
-            "homepage": ":author_website",
+            "name": "Jonathan Fontes",
+            "email": "jonathan.alexey16@gmail.com",
+            "homepage": "https://github.com/gravataLonga",
             "role": "Developer"
         }
     ],
     "require": {
-        "php" : "~7.4"
+        "php": "^8.0",
+        "gravatalonga/container": "^1.8"
     },
     "require-dev": {
         "phpstan/phpstan": "^1.2",
@@ -27,7 +28,7 @@
     },
     "autoload": {
         "psr-4": {
-            ":vendor\\:package_name\\": "src"
+            "Gravatalonga\\Framework\\": "src"
         }
     },
     "autoload-dev": {
@@ -37,7 +38,7 @@
     },
     "scripts": {
         "phpstan": "phpstan analyze -l max src",
-        "fix-style": "php-cs-fixer src tests",
+        "fix-style": "php-cs-fixer fix",
         "test": "XDEBUG_MODE=coverage phpunit"
     },
     "extra": {
