@@ -10,7 +10,7 @@ use Psr\Container\ContainerInterface;
 /**
  * @covers \Gravatalonga\Framework\App::register
  */
-class RegisteServiceProviderTest extends TestCase
+class RegisterServiceProviderTest extends TestCase
 {
     /**
      * @test

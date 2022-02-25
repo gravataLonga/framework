@@ -34,8 +34,10 @@ class App
         }
 
         $this->boot = true;
-        $this->buildContainer();
-        $this->bindPath();
+        $this->createContainer();
+        $this->bindingPath();
+        $this->loadConfiguration();
+        $this->bindProviderFromConfiguration();
         $this->loadProviders();
     }
 
@@ -54,44 +56,74 @@ class App
         return $this->container;
     }
 
-    private function bindPath(): void
+    private function bindingPath(): void
     {
         if (is_null($this->basePath)) {
             $cwd = getcwd();
-            $this->container->set('path.base', new Path(empty($cwd) ? "./" : $cwd));
-
+            $this->container->share('path.base', new Path(empty($cwd) ? "./" : $cwd));
             return;
         }
 
-        $this->container->set('path.base', $this->basePath);
+        $this->container->share('path.base', $this->basePath);
 
         try {
-            $this->container->set('path.config', $this->basePath->suffix('config'));
+            $this->container->share('path.config', $this->basePath->suffix('config'));
         } catch (PathNotExists $e) {
         }
 
         try {
-            $this->container->set('path.domain', $this->basePath->suffix('domain'));
+            $this->container->share('path.domain', $this->basePath->suffix('domain'));
         } catch (PathNotExists $e) {
         }
 
         try {
-            $this->container->set('path.resource', $this->basePath->suffix('resource'));
+            $this->container->share('path.resource', $this->basePath->suffix('resource'));
         } catch (PathNotExists $e) {
         }
 
         try {
-            $this->container->set('path.storage', $this->basePath->suffix('storage'));
+            $this->container->share('path.storage', $this->basePath->suffix('storage'));
         } catch (PathNotExists $e) {
         }
 
         try {
-            $this->container->set('path.public', $this->basePath->suffix('public'));
+            $this->container->share('path.public', $this->basePath->suffix('public'));
         } catch (PathNotExists $e) {
         }
     }
 
-    private function buildContainer(): void
+    private function loadConfiguration(): void
+    {
+        if (! $this->container->has('path.config')) {
+            return;
+        }
+
+        $config = $this->container->get('path.config');
+        foreach (glob($config . '/*.php') as $file) {
+            $key = basename($file, '.php');
+            $content = require  $file;
+            $this->container->share('config.' . $key, $content);
+        }
+    }
+
+    private function bindProviderFromConfiguration(): void
+    {
+        if (! $this->container->has('config.providers')) {
+            return;
+        }
+
+        $providers = $this->container->get('config.providers');
+
+        if (! is_array($providers)) {
+            return;
+        }
+
+        foreach ($providers as $provider) {
+            $this->register($provider);
+        }
+    }
+
+    private function createContainer(): void
     {
         $this->container = new Container();
     }

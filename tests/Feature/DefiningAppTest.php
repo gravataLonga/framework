@@ -66,4 +66,32 @@ class DefiningAppTest extends TestCase
         $this->assertFalse($app->getContainer()->has('path.storage'), 'storage path exists');
         $this->assertFalse($app->getContainer()->has('path.public'), 'public path exists');
     }
+
+    /**
+     * @test
+     */
+    public function each_configuration_has_correct_bind_into_container()
+    {
+        $app = new App(new Path('./tests/fixture/App/HappyPath'));
+        $app->boot();
+
+        $this->assertTrue($app->getContainer()->has('config.providers'));
+        $this->assertTrue($app->getContainer()->has('config.app'));
+
+        $this->assertIsArray($app->getContainer()->get('config.providers'));
+        $this->assertIsArray($app->getContainer()->get('config.app'));
+    }
+
+    /**
+     * @test
+     */
+    public function load_provider_defined_on_config_providers()
+    {
+        $app = new App(new Path('./tests/fixture/App/HappyPath'));
+        $app->boot();
+
+        $key = $app->getContainer()->get('key');
+
+        $this->assertEquals(123, $key);
+    }
 }
