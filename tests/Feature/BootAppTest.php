@@ -1,7 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Tests\Feature;
 
+use Gravatalonga\Container\Container;
 use Gravatalonga\Framework\App;
 use Gravatalonga\Framework\BootableTwice;
 use PHPUnit\Framework\TestCase;
@@ -48,5 +49,16 @@ class BootAppTest extends TestCase
         $app->boot();
 
         $this->assertInstanceOf(ContainerInterface::class, $app->getContainer());
+    }
+
+    /**
+     * @test
+     */
+    public function it_set_instance_to_itself()
+    {
+        $app = new App();
+        $app->boot();
+
+        $this->assertSame($app->getContainer(), Container::getInstance());
     }
 }

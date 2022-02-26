@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Gravatalonga\Framework;
 
@@ -6,7 +6,7 @@ use Gravatalonga\Container\Container;
 use Gravatalonga\Framework\ValueObject\Path;
 use Gravatalonga\Framework\ValueObject\PathNotExists;
 
-class App
+final class App
 {
     private bool $boot = false;
 
@@ -61,6 +61,7 @@ class App
         if (is_null($this->basePath)) {
             $cwd = getcwd();
             $this->container->share('path.base', new Path(empty($cwd) ? "./" : $cwd));
+
             return;
         }
 
@@ -126,6 +127,7 @@ class App
     private function createContainer(): void
     {
         $this->container = new Container();
+        Container::setInstance($this->container);
     }
 
     private function loadProviders(): void

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 $finder = PhpCsFixer\Finder::create()
     ->in([
@@ -7,6 +7,7 @@ $finder = PhpCsFixer\Finder::create()
     ]);
 
 $config = new PhpCsFixer\Config();
+
 return $config->setRules([
     '@PSR2' => true,
     'array_syntax' => ['syntax' => 'short'],
@@ -15,6 +16,7 @@ return $config->setRules([
     'not_operator_with_successor_space' => true,
     'trailing_comma_in_multiline' => ['elements' => ['arrays']],
     'phpdoc_scalar' => true,
+    'declare_strict_types' => true,
     'unary_operator_spaces' => true,
     'binary_operator_spaces' => true,
     'blank_line_before_statement' => [
@@ -24,7 +26,7 @@ return $config->setRules([
     'phpdoc_var_without_name' => true,
     'class_attributes_separation' => [
         'elements' => [
-            'method' => 'one'
+            'method' => 'one',
         ],
     ],
     'method_argument_space' => [
@@ -33,4 +35,5 @@ return $config->setRules([
     ],
     'single_trait_insert_per_statement' => true,
 ])
+    ->setRiskyAllowed(true)
     ->setFinder($finder);
