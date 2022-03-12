@@ -59,10 +59,7 @@ final class App
     private function bindingPath(): void
     {
         if (is_null($this->basePath)) {
-            $cwd = getcwd();
-            $this->container->share('path.base', new Path(empty($cwd) ? "./" : $cwd));
-
-            return;
+            $this->basePath = new Path(getcwd());
         }
 
         $this->container->share('path.base', $this->basePath);
@@ -102,7 +99,7 @@ final class App
         $config = $this->container->get('path.config');
         foreach (glob($config . '/*.php') as $file) {
             $key = basename($file, '.php');
-            $content = require  $file;
+            $content = require $file;
             $this->container->share('config.' . $key, $content);
         }
     }
