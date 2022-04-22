@@ -19,4 +19,12 @@ namespace Gravatalonga\Framework {
             return $container->make($key, $arguments);
         }
     }
+
+    if (! function_exists('instance')) {
+        function instance(string $key): mixed
+        {
+            $container = container();
+            return $container->has($key) ? $container->get($key) : null;
+        }
+    }
 }
