@@ -27,7 +27,7 @@ class PathTest extends TestCase
     public function throw_exception_if_path_not_exists()
     {
         $this->expectException(PathNotExists::class);
-        $this->expectExceptionMessage('path not exists');
+        $this->expectExceptionMessage('path not exists: ./not-exists');
 
         new Path('./not-exists');
     }

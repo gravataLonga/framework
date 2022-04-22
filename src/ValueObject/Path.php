@@ -9,7 +9,7 @@ class Path implements \Stringable
     public function __construct(string $path)
     {
         if (! file_exists($path)) {
-            throw new PathNotExists();
+            throw new PathNotExists($path);
         }
 
         $this->path = $path;

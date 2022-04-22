@@ -6,8 +6,8 @@ use Throwable;
 
 class PathNotExists extends \DomainException
 {
-    public function __construct(int $code = 0, ?Throwable $previous = null)
+    public function __construct(string $path, int $code = 0, ?Throwable $previous = null)
     {
-        parent::__construct('path not exists', $code, $previous);
+        parent::__construct(sprintf('path not exists: %s', $path), $code, $previous);
     }
 }
