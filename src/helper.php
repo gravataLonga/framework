@@ -11,4 +11,12 @@ namespace Gravatalonga\Framework {
             return Container::getInstance();
         }
     }
+
+    if (! function_exists('make')) {
+        function make(string $key, array $arguments = []): mixed
+        {
+            $container = container();
+            return $container->make($key, $arguments);
+        }
+    }
 }
