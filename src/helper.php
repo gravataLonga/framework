@@ -3,6 +3,7 @@
 namespace Gravatalonga\Framework {
 
     use Gravatalonga\Container\Container;
+    use Gravatalonga\Framework\ValueObject\Path;
     use Psr\Container\ContainerInterface;
 
     if (! function_exists('container')) {
@@ -21,10 +22,52 @@ namespace Gravatalonga\Framework {
     }
 
     if (! function_exists('instance')) {
-        function instance(string $key): mixed
+        function instance(string $key, mixed $value = null): mixed
         {
             $container = container();
-            return $container->has($key) ? $container->get($key) : null;
+            return $container->has($key) ? $container->get($key) : $value;
+        }
+    }
+
+    if (! function_exists('base_path')) {
+        function base_path(): Path
+        {
+            return instance('path.base', new Path(getcwd()));
+        }
+    }
+
+    if (! function_exists('config_path')) {
+        function config_path(): Path
+        {
+            return instance('path.config', new Path(getcwd()));
+        }
+    }
+
+    if (! function_exists('domain_path')) {
+        function domain_path(): Path
+        {
+            return instance('path.domain', new Path(getcwd()));
+        }
+    }
+
+    if (! function_exists('public_path')) {
+        function public_path(): Path
+        {
+            return instance('path.public', new Path(getcwd()));
+        }
+    }
+
+    if (! function_exists('resource_path')) {
+        function resource_path(): Path
+        {
+            return instance('path.resource', new Path(getcwd()));
+        }
+    }
+
+    if (! function_exists('storage_path')) {
+        function storage_path(): Path
+        {
+            return instance('path.storage', new Path(getcwd()));
         }
     }
 }
