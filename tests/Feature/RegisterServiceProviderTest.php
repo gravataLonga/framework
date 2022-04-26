@@ -4,8 +4,10 @@ namespace Tests\Feature;
 
 use Gravatalonga\Framework\App;
 use Gravatalonga\Framework\ServiceProvider;
+use Gravatalonga\Framework\ValueObject\Path;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
+use Tests\fixture\App\HappyPath\Dummy;
 
 /**
  * @covers \Gravatalonga\Framework\App::register
@@ -239,5 +241,38 @@ class RegisterServiceProviderTest extends TestCase
         $app->boot();
 
         $this->assertEquals('abc', $app->getContainer()->get('key'));
+    }
+
+    /**
+     * @test
+     */
+    public function when_register_service_provider_its_register_at_end()
+    {
+        $app = new App(new Path('./tests/fixture/App/HappyPath'));
+        $app->register(new class() implements ServiceProvider {
+            public function factories(): array
+            {
+                return [];
+            }
+
+            public function extensions(): array
+            {
+                return [
+                    'key' => function (ContainerInterface $c, $key) {
+                        return '456';
+                    },
+                    Dummy::class => function (ContainerInterface $c, Dummy $d) {
+                        return new Dummy('XPTO');
+                    },
+                ];
+            }
+        });
+        $app->boot();
+
+        var_dump($app->getContainer()->get('key'));
+        var_dump($app->getContainer()->get('key'));
+        var_dump($app->getContainer()->get(Dummy::class)->getScope());
+        var_dump($app->getContainer()->get(Dummy::class)->getScope());
+        $this->assertEquals('456', $app->getContainer()->get('key'));
     }
 }

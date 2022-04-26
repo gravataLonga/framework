@@ -8,7 +8,12 @@ class Stub implements ServiceProvider
 {
     public function factories(): array
     {
-        return ['key' => 123];
+        return [
+            'key' => '123',
+            Dummy::class => function () {
+                return new Dummy('ABCD');
+            },
+        ];
     }
 
     public function extensions(): array
