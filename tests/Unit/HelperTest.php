@@ -126,7 +126,7 @@ class HelperTest extends TestCase
         $app->boot();
 
         $this->assertInstanceOf(Path::class, base_path());
-        $this->assertEquals('/Users/jonathanfontes/Sites/framework', (string)base_path());
+        $this->assertStringContainsString('framework', (string)base_path());
     }
 
     /**
