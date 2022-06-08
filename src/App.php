@@ -20,11 +20,8 @@ final class App
      */
     private Container $container;
 
-    private ?Path $basePath;
-
-    public function __construct(?Path $path = null)
+    public function __construct(private ?\Gravatalonga\Framework\ValueObject\Path $basePath = null)
     {
-        $this->basePath = $path;
     }
 
     public function boot(): void
@@ -59,34 +56,35 @@ final class App
     private function bindingPath(): void
     {
         if (is_null($this->basePath)) {
-            $this->basePath = new Path(getcwd());
+            $cwd = getcwd();
+            $this->basePath = new Path($cwd !== false ? $cwd : '');
         }
 
         $this->container->share('path.base', $this->basePath);
 
         try {
             $this->container->share('path.config', $this->basePath->suffix('config'));
-        } catch (PathNotExists $e) {
+        } catch (PathNotExists) {
         }
 
         try {
             $this->container->share('path.domain', $this->basePath->suffix('domain'));
-        } catch (PathNotExists $e) {
+        } catch (PathNotExists) {
         }
 
         try {
             $this->container->share('path.resource', $this->basePath->suffix('resource'));
-        } catch (PathNotExists $e) {
+        } catch (PathNotExists) {
         }
 
         try {
             $this->container->share('path.storage', $this->basePath->suffix('storage'));
-        } catch (PathNotExists $e) {
+        } catch (PathNotExists) {
         }
 
         try {
             $this->container->share('path.public', $this->basePath->suffix('public'));
-        } catch (PathNotExists $e) {
+        } catch (PathNotExists) {
         }
     }
 
@@ -97,7 +95,15 @@ final class App
         }
 
         $config = $this->container->get('path.config');
-        foreach (glob($config . '/*.php') as $file) {
+        /**
+         * @var string[]|false
+         */
+        $glob = glob($config . '/*.php');
+        if ($glob === false) {
+            return;
+        }
+
+        foreach ($glob as $file) {
             $key = basename($file, '.php');
             $content = require $file;
             $this->container->share('config.' . $key, $content);
@@ -138,6 +144,11 @@ final class App
         }
     }
 
+    /**
+     * @param string $type
+     *
+     * @return \Generator<string, mixed>
+     */
     private function yieldProviders(string $type): \Generator
     {
         foreach ($this->providers as $provider) {

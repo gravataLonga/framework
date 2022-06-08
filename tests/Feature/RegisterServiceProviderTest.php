@@ -268,11 +268,7 @@ class RegisterServiceProviderTest extends TestCase
             }
         });
         $app->boot();
-
-        var_dump($app->getContainer()->get('key'));
-        var_dump($app->getContainer()->get('key'));
-        var_dump($app->getContainer()->get(Dummy::class)->getScope());
-        var_dump($app->getContainer()->get(Dummy::class)->getScope());
+        
         $this->assertEquals('456', $app->getContainer()->get('key'));
     }
 }
