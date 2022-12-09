@@ -54,7 +54,7 @@ class DefiningAppTest extends TestCase
     /**
      * @test
      */
-    public function if_some_folder_are_created_then_binded_them()
+    public function if_some_folder_are_created_then_bound_them()
     {
         $app = new App(new Path('./tests/fixture/App/SemiPath'));
         $app->boot();
