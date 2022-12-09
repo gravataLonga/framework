@@ -1,7 +1,6 @@
 <?php declare(strict_types=1);
 
 namespace Gravatalonga\Framework {
-
     use Gravatalonga\Container\Container;
     use Gravatalonga\Framework\ValueObject\Path;
     use Psr\Container\ContainerInterface;
