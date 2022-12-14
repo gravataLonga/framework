@@ -6,9 +6,6 @@ namespace Gravatalonga\Framework {
     use Psr\Container\ContainerInterface;
 
     if (! function_exists('container')) {
-        /**
-         * @return \Psr\Container\ContainerInterface|Container
-         */
         function container(): ContainerInterface
         {
             return Container::getInstance();
@@ -17,10 +14,8 @@ namespace Gravatalonga\Framework {
 
     if (! function_exists('make')) {
         /**
-         * @param string $key
          * @param array<string, mixed> $arguments
          *
-         * @return mixed
          */
         function make(string $key, array $arguments = []): mixed
         {

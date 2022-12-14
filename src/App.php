@@ -145,8 +145,6 @@ final class App
     }
 
     /**
-     * @param string $type
-     *
      * @return \Generator<string, mixed>
      */
     private function yieldProviders(string $type): \Generator

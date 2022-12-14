@@ -4,7 +4,7 @@ namespace Gravatalonga\Framework\ValueObject;
 
 class Path implements \Stringable
 {
-    private string $path;
+    private readonly string $path;
 
     public function __construct(string $path)
     {
