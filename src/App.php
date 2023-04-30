@@ -15,9 +15,6 @@ final class App
      */
     private array $providers = [];
 
-    /**
-     * @var Container
-     */
     private Container $container;
 
     public function __construct(private ?\Gravatalonga\Framework\ValueObject\Path $basePath = null)
@@ -95,9 +92,6 @@ final class App
         }
 
         $config = $this->container->get('path.config');
-        /**
-         * @var string[]|false
-         */
         $glob = glob($config . '/*.php');
         if ($glob === false) {
             return;

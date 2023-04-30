@@ -19,9 +19,6 @@ namespace Gravatalonga\Framework {
          */
         function make(string $key, array $arguments = []): mixed
         {
-            /**
-             * @var Container
-             */
             $container = container();
 
             return $container->make($key, $arguments);
@@ -48,9 +45,6 @@ namespace Gravatalonga\Framework {
 
             $path = new Path($cwd);
 
-            /**
-             * @var Path
-             */
             return instance('path.base', $path);
         }
     }
@@ -66,9 +60,6 @@ namespace Gravatalonga\Framework {
 
             $path = new Path($cwd);
 
-            /**
-             * @var Path
-             */
             return instance('path.config', $path);
         }
     }
@@ -84,9 +75,6 @@ namespace Gravatalonga\Framework {
 
             $path = new Path($cwd);
 
-            /**
-             * @var Path
-             */
             return instance('path.domain', $path);
         }
     }
@@ -102,9 +90,6 @@ namespace Gravatalonga\Framework {
 
             $path = new Path($cwd);
 
-            /**
-             * @var Path
-             */
             return instance('path.public', $path);
         }
     }
@@ -120,9 +105,6 @@ namespace Gravatalonga\Framework {
 
             $path = new Path($cwd);
 
-            /**
-             * @var Path
-             */
             return instance('path.resource', $path);
         }
     }
@@ -138,9 +120,6 @@ namespace Gravatalonga\Framework {
 
             $path = new Path($cwd);
 
-            /**
-             * @var Path
-             */
             return instance('path.storage', $path);
         }
     }

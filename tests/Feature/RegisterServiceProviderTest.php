@@ -3,6 +3,8 @@
 namespace Tests\Feature;
 
 use Gravatalonga\Framework\App;
+use Gravatalonga\Framework\Factory;
+use Gravatalonga\Framework\Provider;
 use Gravatalonga\Framework\ServiceProvider;
 use Gravatalonga\Framework\ValueObject\Path;
 use PHPUnit\Framework\TestCase;
@@ -246,7 +248,7 @@ class RegisterServiceProviderTest extends TestCase
     /**
      * @test
      */
-    public function when_register_service_provider_its_register_at_end()
+    public function extensions_are_called_after_factories_was_called()
     {
         $app = new App(new Path('./tests/fixture/App/HappyPath'));
         $app->register(new class() implements ServiceProvider {
@@ -271,4 +273,22 @@ class RegisterServiceProviderTest extends TestCase
         
         $this->assertEquals('456', $app->getContainer()->get('key'));
     }
+
+    /**
+    public function service_provider_as_class ()
+    {
+        $app = new App(new Path('./tests/fixture/App/HappyPath'));
+        $app->register(new class() extends Provider
+        {
+            #[Factory('key')]
+            public function getRandom()
+            {
+                return rand(0, 10000);
+            }
+        });
+        $app->boot();
+
+        $this->assertTrue($app->getContainer()->has('key'));
+
+    }*/
 }
