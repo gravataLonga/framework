@@ -5,122 +5,100 @@ namespace Gravatalonga\Framework {
     use Gravatalonga\Framework\ValueObject\Path;
     use Psr\Container\ContainerInterface;
 
-    if (! function_exists('container')) {
-        function container(): ContainerInterface
-        {
-            return Container::getInstance();
-        }
+    function container(): ContainerInterface
+    {
+        return Container::getInstance();
     }
 
-    if (! function_exists('make')) {
-        /**
-         * @param array<string, mixed> $arguments
-         *
-         */
-        function make(string $key, array $arguments = []): mixed
-        {
-            $container = container();
+    function make(string $key, array $arguments = []): mixed
+    {
+        $container = container();
 
-            return $container->make($key, $arguments);
-        }
+        return $container->make($key, $arguments);
     }
 
-    if (! function_exists('instance')) {
-        function instance(string $key, mixed $value = null): mixed
-        {
-            $container = container();
+    function instance(string $key, mixed $value = null): mixed
+    {
+        $container = container();
 
-            return $container->has($key) ? $container->get($key) : $value;
-        }
+        return $container->has($key) ? $container->get($key) : $value;
     }
 
-    if (! function_exists('base_path')) {
-        function base_path(): Path
-        {
-            $cwd = getcwd();
+    function base_path(): Path
+    {
+        $cwd = getcwd();
 
-            if ($cwd === false) {
-                $cwd = ".";
-            }
-
-            $path = new Path($cwd);
-
-            return instance('path.base', $path);
+        if ($cwd === false) {
+            $cwd = ".";
         }
+
+        $path = new Path($cwd);
+
+        return instance('path.base', $path);
     }
 
-    if (! function_exists('config_path')) {
-        function config_path(): Path
-        {
-            $cwd = getcwd();
+    function config_path(): Path
+    {
+        $cwd = getcwd();
 
-            if ($cwd === false) {
-                $cwd = ".";
-            }
-
-            $path = new Path($cwd);
-
-            return instance('path.config', $path);
+        if ($cwd === false) {
+            $cwd = ".";
         }
+
+        $path = new Path($cwd);
+
+        return instance('path.config', $path);
     }
 
-    if (! function_exists('domain_path')) {
-        function domain_path(): Path
-        {
-            $cwd = getcwd();
+    function domain_path(): Path
+    {
+        $cwd = getcwd();
 
-            if ($cwd === false) {
-                $cwd = ".";
-            }
-
-            $path = new Path($cwd);
-
-            return instance('path.domain', $path);
+        if ($cwd === false) {
+            $cwd = ".";
         }
+
+        $path = new Path($cwd);
+
+        return instance('path.domain', $path);
     }
 
-    if (! function_exists('public_path')) {
-        function public_path(): Path
-        {
-            $cwd = getcwd();
+    function public_path(): Path
+    {
+        $cwd = getcwd();
 
-            if ($cwd === false) {
-                $cwd = ".";
-            }
-
-            $path = new Path($cwd);
-
-            return instance('path.public', $path);
+        if ($cwd === false) {
+            $cwd = ".";
         }
+
+        $path = new Path($cwd);
+
+        return instance('path.public', $path);
     }
 
-    if (! function_exists('resource_path')) {
-        function resource_path(): Path
-        {
-            $cwd = getcwd();
+    function resource_path(): Path
+    {
+        $cwd = getcwd();
 
-            if ($cwd === false) {
-                $cwd = ".";
-            }
-
-            $path = new Path($cwd);
-
-            return instance('path.resource', $path);
+        if ($cwd === false) {
+            $cwd = ".";
         }
+
+        $path = new Path($cwd);
+
+        return instance('path.resource', $path);
     }
 
-    if (! function_exists('storage_path')) {
-        function storage_path(): Path
-        {
-            $cwd = getcwd();
+    function storage_path(): Path
+    {
+        $cwd = getcwd();
 
-            if ($cwd === false) {
-                $cwd = ".";
-            }
-
-            $path = new Path($cwd);
-
-            return instance('path.storage', $path);
+        if ($cwd === false) {
+            $cwd = ".";
         }
+
+        $path = new Path($cwd);
+
+        return instance('path.storage', $path);
     }
 }

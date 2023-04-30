@@ -43,7 +43,8 @@
     "scripts": {
         "phpstan": "phpstan analyze -l max src --xdebug",
         "fix-style": "php-cs-fixer fix",
-        "test": "XDEBUG_MODE=coverage phpunit"
+        "test": "XDEBUG_MODE=coverage phpunit",
+        "rector": "rector process"
     },
     "extra": {
         "branch-alias": {
